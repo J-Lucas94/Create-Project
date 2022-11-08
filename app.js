@@ -90,6 +90,27 @@ app.engine("handlebars", hbs.engine({
         }
     }
 }));
+
+//Models
+
+const Canis = require('./models/Canis')
+const Chips = require('./models/Chips')
+const Clientes = require('./models/Clientes')
+const MotivosBaixa = require('./models/MotivosBaixa')
+const Procedimentos = require('./models/Procedimentos')
+const ViasAdmissao = require('./models/ViasAdmissoes')
+const Contratos = require('./models/Contratos')
+const Admissoes = require('./models/Admissoes')
+const PrecosProc = require('./models/PrecosProc')
+const AgendaProc = require('./models/AgendaProc')
+const RegProcAutAvulsos = require('./models/RegProcAutAvulsos')
+const RegOcorrencias = require('./models/RegOcorrencias')
+const Baixa = require('./models/Baixa')
+const Funcoes = require('./models/Funcoes')
+const Permissoes = require('./models/Permissoes')
+const PermissoesFuncoes = require('./models/PermissoesFuncoes')
+const FuncaoUsuario = require('./models/FuncaoUsuario')
+
 app.set("view engine", "handlebars");
 
 //public path
@@ -99,8 +120,42 @@ app.use(express.static('public'))
 //Routes
 
 const authRoutes = require('./routes/authRoutes')
-app.use('/', authRoutes)
+const canisRoutes = require('./routes/canisRoutes')
+const clientesRoutes = require('./routes/clientesRoutes')
+const chipsRoutes = require('./routes/chipsRoutes')
+const viaRoutes = require('./routes/viaRoutes')
+const procRoutes = require('./routes/procRoutes')
+const motBaixaRoutes = require('./routes/motBaixaRoutes')
+const contratoRoutes = require('./routes/contratosRoutes')
+const precosRoutes = require('./routes/precosRoutes')
+const admissoesRoutes = require('./routes/admissoesRoutes')
+const agendaRoutes = require('./routes/agendaRoutes')
+const regProcAutAvulsosRoutes = require('./routes/regProcAutAvulsosRoutes')
+const regOcorrenciasRoutes = require('./routes/regOcorrenciasRoutes')
+const baixaRoutes = require('./routes/baixaRoutes')
+const funcoesRoutes = require('./routes/funcoesRoutes')
+const permissoesRoutes = require('./routes/PermissoesRoutes')
+const permissoesFuncRoutes = require('./routes/permissoesFuncRoutes')
+const FuncaoUsuarioRoutes = require('./routes/funcaoUsuarioRoutes')
 
+app.use('/', authRoutes)
+app.use('/canis', canisRoutes)
+app.use('/clientes', clientesRoutes)
+app.use('/chips', chipsRoutes)
+app.use('/vias', viaRoutes)
+app.use('/procedimentos', procRoutes)
+app.use('/motivos', motBaixaRoutes)
+app.use('/contratos', contratoRoutes)
+app.use('/precos', precosRoutes)
+app.use('/admissoes', admissoesRoutes)
+app.use('/agenda', agendaRoutes)
+app.use('/avulsos', regProcAutAvulsosRoutes)
+app.use('/ocorrencias', regOcorrenciasRoutes)
+app.use('/baixa', baixaRoutes)
+app.use('/funcoes', funcoesRoutes)
+app.use('/permissoes', permissoesRoutes)
+app.use('/permissoesfunc', permissoesFuncRoutes)
+app.use('/funcao', FuncaoUsuarioRoutes)
 //Conection
 
 app.listen(3000, console.log('Iniciado na porta 3000'))

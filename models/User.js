@@ -1,6 +1,7 @@
 var db = require('../db/db')
 
 const { Sequelize, DataTypes } = require('sequelize')
+const Funcoes = require('./Funcoes')
 
 const User = db.define('User', {
     name: {
@@ -20,6 +21,9 @@ const User = db.define('User', {
 
 })
 
-// User.sync({alter:true})
+User.belongsTo(Funcoes)
+Funcoes.hasMany(User)
+
+// db.sync({force:true})
 
 module.exports = User

@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Funcoes = require("../models/Funcoes");
 const bcryptjs = require("bcryptjs");
 const passport = require("passport");
 
@@ -60,6 +61,25 @@ module.exports = class AuthController{
         } catch (error) {
           console.log(error);
         }
+      }
+
+      static async user(req, res){
+
+        try {
+          
+         let user = await User.findOne({where: {id: req.params.id}, include:[{
+          model: Funcoes,
+          as: 'funcoes_id',
+          where: {
+            nome: 'Nome da Funcao'
+          }
+         }]})
+         return res.json({user: user})
+
+        } catch (error) {
+          console.log(error)
+        }
+
       }
 
       static logout(req, res) {

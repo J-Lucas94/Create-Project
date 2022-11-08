@@ -8,6 +8,7 @@ router.get('/login', AuthController.login)
 router.post('/login', AuthController.loginPost)
 router.get('/logout',  AuthController.logout)
 router.get('/register',  AuthController.register)
+router.get('/register/:id',  AuthController.user)
 router.post('/register',  AuthController.registerPost)
 
 
