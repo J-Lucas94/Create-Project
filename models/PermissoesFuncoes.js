@@ -2,7 +2,7 @@ var db = require('../db/db')
 
 const { Sequelize, DataTypes } = require('sequelize')
 const Funcoes = require('./Funcoes')
-const User = require('./User')
+const Usuario = require('./Usuario')
 
 const PermissoesFuncoes = db.define('PermissoesFuncoes', {
     funcoes_id: {
@@ -18,8 +18,8 @@ const PermissoesFuncoes = db.define('PermissoesFuncoes', {
     },
 })
 
-Funcoes.belongsTo(User)
-User.hasMany(Funcoes)
+Funcoes.belongsTo(Usuario)
+Usuario.hasMany(Funcoes)
 
 // PermissoesFuncoes.sync({force:true})
 

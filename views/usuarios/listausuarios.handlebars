@@ -1,0 +1,76 @@
+<div class="content p-1">
+    <div class="d-flex">
+        <div class="mr-auto p-2">
+            <h2 class="display-4 titulo">Usuários</h2>
+        </div>
+    </div>
+</div>
+<hr>
+
+<div class="table-responsive">
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Perfil Solicitante</th>
+                <th>Perfil Entregador</th>
+                <th>Perfil Administrador</th>
+                <th class="text-center">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each usuarios}}
+            <tr>
+                <td>{{this.nome}}</td>
+                <td>{{this.email}}</td>
+                <td>
+                    <div class="col-6 m-uto">
+                        <input disabled type="text" {{#if this.perfilSolicitante}} checked {{/if}} class="form-check-input"
+                        type="checkbox" id="perfilSolicitante" name="perfilSolicitante">
+                        <label for="perfilSolicitante"></label>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="col-6 m-uto">
+                        <input disabled type="text" {{#if this.perfilEntregador}} checked {{/if}} class="form-check-input"
+                        type="checkbox" id="perfilEntregador" name="perfilEntregador">
+                        <label for="perfilEntregador"></label>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="col-6 m-uto">
+                        <input disabled type="text" {{#if this.perfilAdmin}} checked {{/if}} class="form-check-input"
+                        type="checkbox" id="perfilAdmin" name="perfilAdmin">
+                        <label for="perfilAdmin"></label>
+                    </div>
+                </td>
+
+                <td class="text-center">
+                    <span class="d-none d-md-block">
+                        <a href="/editar/{{this.id}}" class="btn btn-outline-warning btn-sm">Editar Senha</a>
+                        <a href="/editarusuario/{{this.id}}" class="btn btn-outline-danger btn-sm">Editar Usuário</a>
+                        <a href="/deletar/{{this.id}}" class="btn btn-outline-danger btn-sm apagar_rg" data-confirm="Tem certeza que deseja apagar o item selecionado?">Apagar</a>
+                    </span>
+
+                    <div class="d-block d-md-none">
+                        <div class="dropdown">
+                            <a href="#" class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
+                            arial-expanded="false">Ações</a>
+
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="/editar/{{this.id}}">Editar Senha</a></li>
+                                <li><a class="dropdown-item" href="/editarusuario/{{this.id}}">Editar Usuário</a></li>
+                                <li><a class="dropdown-item" href="/deletar/{{this.id}}">Apagar</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+

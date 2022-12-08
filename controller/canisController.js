@@ -1,15 +1,21 @@
-const Canis = require('../models/Canis')
+const { raw } = require('body-parser')
+const Banco = require('../models/Banco')
 
 module.exports = class CanisController {
 
-    static async registrar(req, res) {
+
+    static registrar(req, res){
+        res.render('canis/canis')
+    }
+
+    static async registrarP(req, res) {
         let canis = {
             nome: req.body.nome
         }
 
         try {
 
-            let canil = await Canis.create(canis)
+            let canil = await Banco.Canis.create(canis)
 
             if (canil) {
                 return res.status(200).json({ message: "Canil registrado com sucesso !" })
@@ -28,13 +34,13 @@ module.exports = class CanisController {
 
             if(req.params.id){
                 
-                let canil = await Canis.findOne({where: {id: req.params.id}})
-                return res.json({canil: canil})
+                let canil = await Banco.Canis.findOne({where: {id: req.params.id},raw: true})
+                return res.render('canis/lista', {canil: canil})
 
             }else{
-                let canis = await Canis.findAll({ raw: true })
+                let canis = await Banco.Canis.findAll({ raw: true })
                 
-                return res.json({ canis })
+                return res.render('canis/lista', {canis: canis})
             }
 
 
@@ -43,14 +49,25 @@ module.exports = class CanisController {
         }
     }
 
-    static async editar(req, res) {
+    static async editar(req, res){
+
+        let canil = await Banco.Canis.findOne({where: {id: req.params.id}, raw: true})
+        console.log(canil)
+
+        if(canil){
+           return res.render('canis/editar', {canil: canil})
+        }
+
+    }
+
+    static async editarP(req, res) {
         let canis = { nome: req.body.nome }
 
         try {
-            let canil = await Canis.findOne({ where: { id: req.params.id } })
+            let canil = await Banco.Canis.findOne({ where: { id: req.params.id }})
 
             if (canil) {
-                await Canis.update(canis, { where: { id: req.params.id } })
+                await Banco.Canis.update(canis, { where: { id: req.params.id } })
                 return res.status(200).json({ message: "Canil Atualizado com sucesso !" })
             } else {
                 return res.status(400).json({ message: "Canil não encontrado !" })
@@ -64,16 +81,18 @@ module.exports = class CanisController {
 
         try {
 
-            let canil = await Canis.findOne({ where: { id: req.params.id } })
+            let canil = await Banco.Canis.findOne({ where: { id: req.params.id } })
 
             if (canil) {
 
-                let deletar = await Canis.destroy({ where: { id: req.params.id } })
+                let deletar = await Banco.Canis.destroy({ where: { id: req.params.id } })
 
                 if (deletar) {
-                    return res.status(200).json({ message: "Canil deletado com sucesso !" })
+                    req.flash("success_msg", "Canil apagado com sucesso !")
+                    return res.redirect('/canis/lista')
                 } else {
-                    return res.status(400).json({ message: "Não possivel deletar o Canil !" })
+                    req.flash("error_msg", "Error: Não foi apagar o Canil !")
+                    return res.redirect('/canis/lista')
                 }
             }
         } catch (error) {

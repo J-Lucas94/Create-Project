@@ -10,7 +10,7 @@ const FuncaoUsuario = db.define('FuncaoUsuario', {
     },
 
     user_id: {
-        references: { model : 'Users', key: 'id'},
+        references: { model : 'Usuarios', key: 'id'},
         type: DataTypes.STRING,
         allowNull: false,
     },

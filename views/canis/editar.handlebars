@@ -1,0 +1,48 @@
+<div class="m-auto col-8">
+    <div class="d-flex">
+        <div class="form-group col-6 m-auto">
+            <h2 class="display-5 tituto m-auto">Editar Canil</h2>
+        </div>
+    </div>
+</div>
+
+<form>
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>Nome</label>
+            <input type="hidden" name="hiddenId" id="hiddenId" value="{{canil.id}}">
+            <input type="text" class="form-control" name="nome" id="nome" value="{{canil.nome}}" required>
+            <button id="btn" type="button" class="btn btn-lg btn-primary btn-block mt-3 m-auto">Registrar</button>
+        </div>
+    </div>
+</form>
+
+<script>
+
+    let btn = document.querySelector('#btn')
+
+    btn.addEventListener('click', async () => {
+        let nome = document.querySelector('#nome').value
+        let hiddenId = document.querySelector('#hiddenId').value
+
+        const response = await fetch('/canis/editar/' + hiddenId, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({nome})
+            })
+
+            if(response.status == 200){
+                return swal("Sucesso !", "Canil registrado com sucesso!", "success")
+            }
+
+        if (nome == "") {
+            return swal("Error !", "Preencha o campo nome !", "error")
+        }
+    })
+
+
+
+</script>

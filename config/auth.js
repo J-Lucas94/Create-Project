@@ -1,19 +1,19 @@
 const localStrategy = require('passport-local').Strategy
 const bcrypt = require("bcryptjs")
 const passport = require('passport')
-const User = require('../models/User')
+const Usuario = require('../models/Usuario')
 
 
 
 
 module.exports = (passport)=>{
-    passport.use(new localStrategy({usernameField: "email",  passwordField: "password"}, (email, password, done)=>{
-        User.findOne({ where: { email: email }}).then((user)=>{
-            if(!user){
+    passport.use(new localStrategy({usernameField: "email",  passwordField: "senha"}, (email, senha, done)=>{
+        Usuario.findOne({ where: { email: email }}).then((usuario)=>{
+            if(!usuario){
                 return done(null, false, {message: "Essa conta não exite !"})
             }
 
-            bcrypt.compare(password, user.password, (erro, correta)=>{
+            bcrypt.compare(senha, usuario.senha, (erro, correta)=>{
                 if(correta){
                     return done(null, user)
                 }else{
@@ -25,12 +25,12 @@ module.exports = (passport)=>{
 }
 
 
-    passport.serializeUser((user, done)=>{
-        done(null, user.id)
+    passport.serializeUser((usuario, done)=>{
+        done(null, usuario.id)
     })
     passport.deserializeUser((id, done)=>{
-        User.findOne({where: {id: id}}).then((user)=>{
-            done(null, user)
+        Usuario.findOne({where: {id: id}}).then((usuario)=>{
+            done(null, usuario)
         }).catch((err)=>{
             done(err, null)
         })

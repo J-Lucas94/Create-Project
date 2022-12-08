@@ -4,7 +4,7 @@ const { Sequelize, DataTypes } = require('sequelize')
 
 const PrecosProc = db.define('PrecosProc', {
     id_usuario: {
-        references: { model : 'Users', key: 'id'},
+        references: { model : 'Usuarios', key: 'id'},
         type: DataTypes.STRING,
         allowNull: false,
     },

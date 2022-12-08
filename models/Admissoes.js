@@ -4,7 +4,7 @@ const { Sequelize, DataTypes } = require('sequelize')
 
 const Admissoes = db.define('Admissoes', {
     id_usuario: {
-        references: { model : 'Users', key: 'id'},
+        references: { model : 'Usuarios', key: 'id'},
         type: DataTypes.STRING,
         allowNull: false,
     },

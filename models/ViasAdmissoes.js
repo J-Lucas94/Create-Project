@@ -10,6 +10,6 @@ const ViasAdmissoes = db.define('ViasAdmissoes', {
 
 })
 
-// ViasAdmissoes.sync({force:true})
+// db.sync({force:true})
 
 module.exports = ViasAdmissoes

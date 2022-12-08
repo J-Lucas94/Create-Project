@@ -1,0 +1,88 @@
+<div class="m-auto col-8">
+    <div class="d-flex">
+        <div class="form-group col-6 m-auto">
+            <h2 class="display-5 titulo m-auto">Editar Usuário</h2>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<form>
+    <div class="col-6 m-auto">
+        <input {{#if usuario.perfilSolicitante}} checked {{/if}} class="form-check-input" type="checkbox" id="perfilSolicitante"
+        name="perfilSolicitante">
+        <label for="perfilSolicitante">Solicitante</label>
+    </div>
+
+    <div class="col-6 m-auto">
+        <input {{#if usuario.perfilEntregador}} checked {{/if}} class="form-check-input" type="checkbox" id="perfilEntregador"
+        name="perfilEntregador">
+        <label for="perfilEntregador">Entregador</label>
+    </div>
+
+    <div class="col-6 m-auto">
+        <input {{#if usuario.perfilAdmin}} checked {{/if}} class="form-check-input" type="checkbox" id="perfilAdmin"
+        name="perfilAdmin">
+        <label for="perfilAdmin">Administrador</label>
+    </div>
+
+    <input type="hidden" id="hiddenId" value="{{usuario.id}}">
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>Nome</label>
+            <input type="text" name="nome" class="form-control" id="nome" placeholder="Nome completo..." value="{{usuario.nome}}" required>
+        </div>
+    </div>
+
+
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>E-mail</label>
+            <input type="email" name="email" class="form-control" id="email" placeholder="Nome completo..." value="{{usuario.email}}" required>
+            <button id="form1" type="button" class="btn btn-lg btn-warning btn-block mt-3 m-auto">Salvar</button>
+        </div>
+    </div>
+</form>
+
+<script>
+
+    try{
+
+        let form1 = document.querySelector("#form1")
+        form1.addEventListener('click', async()=>{
+            let nome = document.querySelector("#nome").value
+            let email = document.querySelector("#email").value
+            let hiddenId = document.querySelector("#hiddenId").value
+            let perfilSolicitante = document.querySelector("#perfilSolicitante").checked
+            let perfilEntregador = document.querySelector("#perfilEntregador").checked
+            let perfilAdmin = document.querySelector("#perfilAdmin").checked
+
+             const response = await fetch('/editarusuario/' + hiddenId, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({nome, email, hiddenId, perfilEntregador, perfilSolicitante, perfilAdmin})
+        })
+
+        if(response.status === 200){
+            return swal("Sucesso !", "Usuário atualizado com sucesso !", "success")
+        }
+
+        if(response.status === 400){
+            return swal("Error !", "O E-mail já está em uso !", "error")
+        }
+
+        if(response.status === 411){
+            return swal("Error !", "Senha muito fraca !", "error")
+        }
+
+        })
+
+    }catch(error){
+        console.log(error)
+    }
+
+</script>

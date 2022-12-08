@@ -93,9 +93,9 @@ app.engine("handlebars", hbs.engine({
 
 //Models
 
-const Canis = require('./models/Canis')
+// const Canis = require('./models/Canis')
 const Chips = require('./models/Chips')
-const Clientes = require('./models/Clientes')
+// const Clientes = require('./models/Clientes')
 const MotivosBaixa = require('./models/MotivosBaixa')
 const Procedimentos = require('./models/Procedimentos')
 const ViasAdmissao = require('./models/ViasAdmissoes')
@@ -110,6 +110,8 @@ const Funcoes = require('./models/Funcoes')
 const Permissoes = require('./models/Permissoes')
 const PermissoesFuncoes = require('./models/PermissoesFuncoes')
 const FuncaoUsuario = require('./models/FuncaoUsuario')
+const Usuario = require('./models/Usuario')
+const Banco = require('./models/Banco')
 
 app.set("view engine", "handlebars");
 
@@ -118,8 +120,9 @@ app.set("view engine", "handlebars");
 app.use(express.static('public'))
 
 //Routes
+console.log(Banco)
 
-const authRoutes = require('./routes/authRoutes')
+const UsuarioRoutes = require('./routes/UsuarioRoutes')
 const canisRoutes = require('./routes/canisRoutes')
 const clientesRoutes = require('./routes/clientesRoutes')
 const chipsRoutes = require('./routes/chipsRoutes')
@@ -138,7 +141,7 @@ const permissoesRoutes = require('./routes/PermissoesRoutes')
 const permissoesFuncRoutes = require('./routes/permissoesFuncRoutes')
 const FuncaoUsuarioRoutes = require('./routes/funcaoUsuarioRoutes')
 
-app.use('/', authRoutes)
+app.use('/', UsuarioRoutes)
 app.use('/canis', canisRoutes)
 app.use('/clientes', clientesRoutes)
 app.use('/chips', chipsRoutes)

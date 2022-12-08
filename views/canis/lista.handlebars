@@ -1,0 +1,38 @@
+{{>_msg}}
+<div class="table-responsive">
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each canis}}
+            <tr>
+                <td>{{this.nome}}</td>
+                {{#if canil}}<td>{{canil.nome}}</td>{{/if}}
+                <td>
+                    <span class="d-none d-md-block">
+                        <a href="/canis/editar/{{this.id}}" class="btn btn-outline-primary btn-sm">Editar</a>
+                        <a href="/canis/deletar/{{this.id}}" class="btn btn-outline-danger btn-sm apagar_rg">Apagar</a>
+                    </span>
+
+                    <div class="d-block d-md-none">
+                        <div class="dropdown">
+                            <a href="#" class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
+                            arial-expanded="false">Ações</a>
+
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="/canis/editar/{{this.id}}">Editar</a></li>
+                                <li><a class="dropdown-item" href="/canis/deletar/{{this.id}}">Apagar</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
