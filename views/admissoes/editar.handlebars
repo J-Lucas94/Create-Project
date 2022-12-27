@@ -1,0 +1,300 @@
+<div class="m-auto col-8">
+    <div class="d-flex">
+        <div class="form-group col-4 m-auto">
+            <h2 class="display-6 tituto mt-5">Editar Admissão</h2>
+        </div>
+    </div>
+</div>
+
+<form>
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <input type="hidden" name="hiddenId" id="hiddenId" value="{{admissao.id}}">
+            <label><span class="text-danger">*</span>ID Cliente</label>
+            <input type="text" list="clientes" class="form-control" value="{{admissao.id_cliente}}" onchange="idCliente()" name="id_cliente"
+                id="id_cliente" placeholder="Cliente..." required>
+        </div>
+    </div>
+
+
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>Cliente</label>
+            <input type="text" id="cliente" onload="nomeCliente()" value="" class="form-control mb-3" disabled>
+        </div>
+    </div>
+
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>ID Usuário</label>
+            <input type="text" list="usuarios" class="form-control mb-3" value="{{admissao.id_usuario}}" onchange="idUsuario()" onload="nomeUsuario()"  name="id_usuario" id="id_usuario"
+                placeholder="Usuario..." required>
+        </div>
+    </div>
+
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>Usuário</label>
+            <input id="usuario" type="text" value="" onload="nomeUsuario()" class="form-control mb-3" disabled>
+        </div>
+    </div>
+
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>ID</label>
+            <input type="text" list="contratos" class="form-control mb-3" value="{{admissao.id_contrato}}" onchange="Contratos()" name="id_contrato" id="id_contrato"
+                placeholder="Contrato..." required>
+        </div>
+    </div>
+
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>Contrato</label>
+            <input id="contrato" type="text" onload="DescContrato()" class="form-control mb-3" disabled>
+        </div>
+    </div>
+
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>ID</label>
+            <input type="text" list="chips" class="form-control mb-3" value="{{admissao.id_chip}}" onchange="Chips()" name="id_chip" id="id_chip"
+                placeholder="Chip..." required>
+        </div>
+    </div>
+
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>Chip</label>
+            <input id="chip" type="text" onload="DescChip()" class="form-control mb-3" disabled>
+        </div>
+    </div>
+
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>ID</label> 
+            <input type="text" list="canis" class="form-control mb-3" value="{{admissao.id_canil}}" onchange="Canis()" name="id_canil" id="id_canil"
+                placeholder="Canil..." required>
+        </div>
+    </div>
+
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>Canil</label>
+            <input id="canil" type="text" onchange="DescCanil()" class="form-control mb-3" disabled>
+        </div>
+    </div>
+
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>ID</label>
+            <input type="text" list="vias" class="form-control mb-3" value="{{admissao.id_via}}" onchange="Vias()" name="id_via" id="id_via"
+                placeholder="Via de Admissão..." required>
+        </div>
+    </div>
+    
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>Via de Admissão</label>
+            <input id="via" type="text" onchange="DescVia()" class="form-control mb-3" disabled>
+        </div>
+    </div>
+
+    <datalist id="clientes">
+        {{#each clientes}}
+        <option class="listaP" value="{{this.id}}">{{this.nome}}</option>
+        {{/each}}
+    </datalist>
+
+    <datalist id="usuarios">
+        {{#each usuarios}}
+        <option class="listaP" value="{{this.id}}">{{this.nome}}</option>
+        {{/each}}
+    </datalist>
+
+    <datalist id="contratos">
+        {{#each contratos}}
+        <option class="listaCo" value="{{this.id}}">Id Usuario: {{this.id_usuario}} - Id_Cliente: {{this.id_cliente}}</option>
+        {{/each}}
+    </datalist>
+
+    <datalist id="chips">
+        {{#each chips}}
+        <option class="listaCh" value="{{this.id}}">{{this.status}}</option>
+        {{/each}}
+    </datalist>
+
+    <datalist id="canis">
+        {{#each canis}}
+        <option class="listaCa" value="{{this.id}}">{{this.nome}}</option>
+        {{/each}}
+    </datalist>
+
+    <datalist id="vias">
+        {{#each vias}}
+        <option class="listaVi" value="{{this.id}}">{{this.descricao}}</option>
+        {{/each}}
+    </datalist>
+
+    <div class="d-flex m-auto">
+        <div class="form-group col-1 m-auto">
+            <button id="btn" type="button" class="btn btn-lg btn-primary btn-block mb-3 ">Editar</button>
+        </div>
+    </div>
+</form>
+
+<script>
+
+    let btn = document.querySelector('#btn')
+
+    btn.addEventListener('click', async () => {
+        let hiddenId = document.querySelector('#hiddenId').value
+        let id_cliente = document.querySelector('#id_cliente').value
+        let id_usuario = document.querySelector('#id_usuario').value
+        let id_contrato = document.querySelector('#id_contrato').value
+        let id_chip = document.querySelector('#id_chip').value
+        let id_canil = document.querySelector('#id_canil').value
+        let id_via = document.querySelector('#id_via').value
+
+        if (id_usuario == "") {
+            return swal("Error !", "Preencha o campo Id Usuário !", "error")
+        }
+
+        if (id_cliente == "") {
+            return swal("Error !", "Preencha o campo Id Cliente !", "error")
+        }
+
+        if (id_contrato == "") {
+            return swal("Error !", "Preencha o campo Id Contrato !", "error")
+        }
+
+        if (id_chip == "") {
+            return swal("Error !", "Preencha o campo Id Chip !", "error")
+        }
+
+         if (id_canil == "") {
+            return swal("Error !", "Preencha o campo Id Canil !", "error")
+        }
+
+        if (id_via == "") {
+            return swal("Error !", "Preencha o campo Id Via de Admissão !", "error")
+        }
+
+        const response = await fetch('/canil/editaradmissao/' + hiddenId, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({ id_cliente, id_usuario, id_contrato, id_chip, id_canil, id_via, hiddenId })
+        })
+
+        if (response.status == 200) {
+            return swal("Sucesso !", "Admissão atualizada com sucesso!", "success")
+        }
+    })
+
+    async function idCliente() {
+        let cliente = document.querySelector('#id_cliente').value
+
+        const result = await fetch('/canil/cliente/' + cliente )
+        const response = await result.json()
+
+        let Cliente = document.querySelector('#cliente').value = response.cliente.nome
+    }
+
+    async function nomeCliente() {
+        let cliente = document.querySelector('#id_cliente').value
+
+        const result = await fetch('/canil/cliente/' + cliente )
+        const response = await result.json()
+
+        let Cliente = document.querySelector('#cliente').value = response.cliente.nome
+    }
+
+    async function idUsuario() {
+        let usuario = document.querySelector('#id_usuario').value
+
+        const result = await fetch('/usuario/' + usuario )
+        const response = await result.json()
+        let Usuario = document.querySelector('#usuario').value = response.usuario.nome
+    }
+
+    async function nomeUsuario() {
+        let usuario = document.querySelector('#id_usuario').value
+
+        const result = await fetch('/usuario/' + usuario )
+        const response = await result.json()
+        let Usuario = document.querySelector('#usuario').value = response.usuario.nome
+    }
+
+    async function Contratos() {
+        let contrato = document.querySelector('#id_contrato').value
+
+        const result = await fetch('/canil/contrato/' + contrato )
+        const response = await result.json()
+        let Contrato = document.querySelector('#contrato').value = response.contrato.id_cliente
+    }
+
+    async function DescContrato() {
+        let contrato = document.querySelector('#id_contrato').value
+
+        const result = await fetch('/canil/contrato/' + contrato )
+        const response = await result.json()
+        let Contrato = document.querySelector('#contrato').value = response.contrato.id_cliente
+    }
+
+    async function Chips() {
+        let chip = document.querySelector('#id_chip').value
+
+        const result = await fetch('/canil/chip/' + chip )
+        const response = await result.json()
+        let Chip = document.querySelector('#chip').value = response.chip.status
+    }
+
+    async function DescChip() {
+        let chip = document.querySelector('#id_chip').value
+
+        const result = await fetch('/canil/chip/' + chip )
+        const response = await result.json()
+        let Chip = document.querySelector('#chip').value = response.chip.status
+    }
+
+    async function Canis() {
+        let canil = document.querySelector('#id_canil').value
+
+        const result = await fetch('/canil/canil/' + canil )
+        const response = await result.json()
+        let Canil = document.querySelector('#canil').value = response.canil.nome
+    }
+
+    async function DescCanil() {
+        let canil = document.querySelector('#id_canil').value
+
+        const result = await fetch('/canil/canil/' + canil )
+        const response = await result.json()
+        let Canil = document.querySelector('#canil').value = response.canil.nome
+    }
+
+    async function Vias() {
+        let via = document.querySelector('#id_via').value
+
+        const result = await fetch('/canil/via/' + via )
+        const response = await result.json()
+        let Via = document.querySelector('#via').value = response.via.descricao
+    }
+
+    async function DescVia() {
+        let via = document.querySelector('#id_via').value
+
+        const result = await fetch('/canil/via/' + via )
+        const response = await result.json()
+        let Via = document.querySelector('#via').value = response.via.descricao
+    }
+    
+nomeCliente()
+nomeUsuario()
+DescContrato()
+DescChip()
+DescCanil()
+DescVia()
+</script>

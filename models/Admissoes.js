@@ -34,7 +34,7 @@ const Admissoes = db.define('Admissoes', {
     },
 
     id_via: {
-        references: { model : 'ViasAdmissoes', key: 'id'},
+        references: { model : 'ViasAdmissao', key: 'id'},
         type: DataTypes.STRING,
         allowNull: false,
     }

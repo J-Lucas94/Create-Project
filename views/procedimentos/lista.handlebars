@@ -1,0 +1,47 @@
+{{>_msg}}
+<div class="table-responsive">
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Descrição</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each procedimentos}}
+            <tr>
+                <td>{{this.id}}</td>
+                <td>{{this.descricao}}</td>
+                {{#if procedimento}}<td>{{procedimentos.descricao}}</td>{{/if}}
+                <td>
+                    <span class="d-none d-md-block">
+                        <a href="/canil/editarproc/{{this.id}}" class="btn btn-outline-primary btn-sm">Editar</a>
+                        <a href="/canil/deletarproc/{{this.id}}"
+                            class="btn btn-outline-danger btn-sm apagar_rg">Apagar</a>
+                    </span>
+
+                    <div class="d-block d-md-none">
+                        <div class="dropdown">
+                            <a href="#" class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink"
+                                data-bs-toggle="dropdown" arial-expanded="false">Ações</a>
+
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="/canil/editarproc/{{this.id}}">Editar</a></li>
+                                <li><a class="dropdown-item" href="/canil/deletarproc/{{this.id}}">Apagar</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <div class="d-flex m-auto">
+        <div class="form-group col-1 m-auto">
+            <a href="/canil/procedimentos" class="btn btn-primary ms-1">Cadastrar</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,132 @@
+<div class="m-auto col-8">
+    <div class="d-flex">
+        <div class="form-group col-3 m-auto">
+            <h2 class="display-6 tituto mt-5">Editar Baixa</h2>
+        </div>
+    </div>
+</div>
+
+<form>
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <input type="hidden" name="hiddenId" id="hiddenId" value="{{baixa.id}}">
+            <label><span class="text-danger">*</span>ID</label>
+            <input type="text" list="motBaixas" class="form-control" value="{{baixa.id_motBaixa}}" onchange="MotivoBaixa()" name="id_motBaixa"
+                id="id_motBaixa" placeholder="Motivo Baixa..." required>
+        </div>
+    </div>
+
+
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>Motivo Baixa</label>
+            <input type="text" id="motBaixa" onload="DescricaoBaixa()" class="form-control mb-3" disabled>
+        </div>
+    </div>
+
+
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>ID</label>
+            <input type="text" list="admissoes" class="form-control mb-3" value="{{baixa.id_admissao}}" onchange="Admissoes()" name="id_admissao" id="id_admissao"
+                placeholder="Procedimento..." required>
+        </div>
+    </div>
+
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>Admissão</label>
+            <input id="admissao" type="text" onload="DescAdm()" class="form-control mb-3" disabled>
+        </div>
+    </div>
+
+
+    <datalist id="motBaixas">
+        {{#each motBaixas}}
+        <option class="listaPro" value="{{this.id}}">{{this.descricao}}</option>
+        {{/each}}
+    </datalist>
+
+    <datalist id="admissoes">
+        {{#each admissoes}}
+        <option class="listaPro" value="{{this.id}}">{{this.id_cliente}}</option>
+        {{/each}}
+    </datalist>
+
+
+    <div class="d-flex m-auto">
+        <div class="form-group col-1 m-auto">
+            <button id="btn" type="button" class="btn btn-lg btn-primary btn-block mb-3 ">Editar</button>
+        </div>
+    </div>
+</form>
+
+<script>
+
+    let btn = document.querySelector('#btn')
+
+    btn.addEventListener('click', async () => {
+        let hiddenId = document.querySelector('#hiddenId').value
+        let id_motBaixa = document.querySelector('#id_motBaixa').value
+        let id_admissao = document.querySelector('#id_admissao').value
+
+        if (id_motBaixa == "") {
+            return swal("Error !", "Preencha o campo Id Motivo Baixa !", "error")
+        }
+
+        if (id_admissao == "") {
+            return swal("Error !", "Preencha o campo Id Admissão !", "error")
+        }
+
+
+        const response = await fetch('/canil/editarbaixa/' + hiddenId, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({ id_motBaixa, id_admissao, hiddenId })
+        })
+
+        if (response.status == 200) {
+            return swal("Sucesso !", "Baixa atualizada com sucesso!", "success")
+        }
+    })
+
+    async function MotivoBaixa() {
+        let motBaixa = document.querySelector('#id_motBaixa').value
+
+        const result = await fetch('/canil/motivo/' + motBaixa )
+        const response = await result.json()
+        let MotBaixa = document.querySelector('#motBaixa').value = response.motBaixa.descricao
+    }
+
+    async function DescricaoBaixa() {
+        let motBaixa = document.querySelector('#id_motBaixa').value
+
+        const result = await fetch('/canil/motivo/' + motBaixa )
+        const response = await result.json()
+
+        let MotBaixa = document.querySelector('#motBaixa').value = response.motBaixa.descricao
+    }
+
+   async function Admissoes() {
+        let admissao = document.querySelector('#id_admissao').value
+
+        const result = await fetch('/canil/admissao/' + admissao )
+        const response = await result.json()
+        let Admissao = document.querySelector('#admissao').value = response.admissao.id_cliente
+    }
+
+    async function DescAdm() {
+        let admissao = document.querySelector('#id_admissao').value
+
+        const result = await fetch('/canil/admissao/' + admissao )
+        const response = await result.json()
+        let Admissao = document.querySelector('#admissao').value = response.admissao.id_cliente
+    }
+
+    
+DescricaoBaixa()
+DescAdm()
+</script>

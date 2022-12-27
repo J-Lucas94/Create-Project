@@ -5,7 +5,7 @@ const passport = require('passport')
 module.exports = class UsuarioController {
 
 
-    static async home(req, res){
+    static async home(req, res) {
         res.render('usuarios/home')
     }
 
@@ -20,8 +20,6 @@ module.exports = class UsuarioController {
             failureFlash: true,
         })(req, res, next);
     }
-
-
 
     static registrar(req, res) {
         res.render('usuarios/registrar')
@@ -72,12 +70,17 @@ module.exports = class UsuarioController {
     }
 
     static async listaUsuarios(req, res) {
+
+        var permissoes = {
+            perfilSolicitante: res.locals.user.perfilSolicitante, perfilEntregador: res.locals.user.perfilEntregador,
+            perfilAdmin: res.locals.user.perfilAdmin, email: res.locals.user.email, nome: res.locals.user.nome
+        }
+
         try {
 
             let usuarios = await Usuario.findAll({ raw: true })
 
-            res.render('usuarios/listausuarios', { usuarios: usuarios })
-
+            res.render('usuarios/listausuarios', { usuarios: usuarios, permissoes: permissoes })
         } catch (error) {
             console.log(error)
         }
@@ -89,6 +92,11 @@ module.exports = class UsuarioController {
             raw: true
         })
         res.render("usuarios/editarusuario", { usuario: usuario })
+    }
+
+    static async usuario(req, res) {
+        let usuario = await Usuario.findOne({ where: { id: req.params.id } })
+        return res.json({ usuario: usuario })
     }
 
     static async editarUsuarioPost(req, res) {

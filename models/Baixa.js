@@ -4,7 +4,7 @@ const { Sequelize, DataTypes } = require('sequelize')
 
 const Baixa = db.define('Baixa', {
     id_motBaixa: {
-        references: { model : 'MotivosBaixas', key: 'id'},
+        references: { model : 'MotivosBaixa', key: 'id'},
         type: DataTypes.STRING,
         allowNull: false,
     },

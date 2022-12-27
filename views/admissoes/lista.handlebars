@@ -1,0 +1,55 @@
+{{>_msg}}
+<div class="table-responsive">
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ID Cliente</th>
+                <th>ID Usuário</th>
+                <th>ID Contrato</th>
+                <th>ID Chip</th>
+                <th>ID Canil</th>
+                <th>ID Via</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each admissoes}}
+            <tr>
+                <td>{{this.id}}</td>
+                <td>{{this.id_cliente}}</td>
+                <td>{{this.id_usuario}}</td>
+                <td>{{this.id_contrato}}</td>
+                <td>{{this.id_chip}}</td>
+                <td>{{this.id_canil}}</td>
+                <td>{{this.id_via}}</td>
+                
+                <td>
+                    <span class="d-none d-md-block">
+                        <a href="/canil/editaradmissao/{{this.id}}" class="btn btn-outline-primary btn-sm">Editar</a>
+                        <a href="/canil/deletaradmissao/{{this.id}}" class="btn btn-outline-danger btn-sm apagar_rg">Apagar</a>
+                    </span>
+
+                    <div class="d-block d-md-none">
+                        <div class="dropdown">
+                            <a href="#" class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
+                            arial-expanded="false">Ações</a>
+
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="/canil/editaradmissao/{{this.id}}">Editar</a></li>
+                                <li><a class="dropdown-item" href="/canil/deletaradmissao/{{this.id}}">Apagar</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <div class="d-flex m-auto">
+        <div class="form-group col-1 m-auto">
+            <a href="/canil/admissoes" class="btn btn-primary ms-1">Cadastrar</a>
+        </div>
+    </div>
+</div>

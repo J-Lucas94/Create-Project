@@ -1,0 +1,261 @@
+<div class="m-auto col-8">
+    <div class="d-flex">
+        <div class="form-group col-4 m-auto">
+            <h2 class="display-6 tituto mt-5">Editar Ocorrência</h2>
+        </div>
+    </div>
+</div>
+
+<form>
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <input type="hidden" name="hiddenId" id="hiddenId" value="{{ocorrencia.id}}">
+            <label><span class="text-danger">*</span>ID Cliente</label>
+            <input type="text" list="clientes" class="form-control" value="{{ocorrencia.id_cliente}}" onchange="idCliente()" name="id_cliente"
+                id="id_cliente" placeholder="Cliente..." required>
+        </div>
+    </div>
+
+
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>Cliente</label>
+            <input type="text" id="cliente" onload="nomeCliente()" value="" class="form-control mb-3" disabled>
+        </div>
+    </div>
+
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>ID Usuário</label>
+            <input type="text" list="usuarios" class="form-control mb-3" value="{{ocorrencia.id_usuario}}" onchange="idUsuario()" onload="nomeUsuario()"  name="id_usuario" id="id_usuario"
+                placeholder="Usuario..." required>
+        </div>
+    </div>
+
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>Usuário</label>
+            <input id="usuario" type="text" value="" onload="nomeUsuario()" class="form-control mb-3" disabled>
+        </div>
+    </div>
+
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>ID</label>
+            <input type="text" list="contratos" class="form-control mb-3" value="{{ocorrencia.id_contrato}}" onchange="Contratos()" name="id_contrato" id="id_contrato"
+                placeholder="Contrato..." required>
+        </div>
+    </div>
+
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>Contrato</label>
+            <input id="contrato" type="text" onload="DescContrato()" class="form-control mb-3" disabled>
+        </div>
+    </div>
+
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>ID</label>
+            <input type="text" list="procedimentos" class="form-control mb-3" value="{{ocorrencia.id_proc}}" onchange="Procedimentos()" name="id_proc" id="id_proc"
+                placeholder="Procedimento..." required>
+        </div>
+    </div>
+
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>Procedimento</label>
+            <input id="procedimento" type="text" onload="DescProc()" class="form-control mb-3" disabled>
+        </div>
+    </div>
+
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>ID</label>
+            <input type="text" list="admissoes" class="form-control mb-3" value="{{ocorrencia.id_admissao}}" onchange="Admissoes()" name="id_admissao" id="id_admissao"
+                placeholder="Procedimento..." required>
+        </div>
+    </div>
+
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>Admissão</label>
+            <input id="admissao" type="text" onload="DescAdm()" class="form-control mb-3" disabled>
+        </div>
+    </div>
+
+
+    <datalist id="clientes">
+        {{#each clientes}}
+        <option class="listaP" value="{{this.id}}">{{this.nome}}</option>
+        {{/each}}
+    </datalist>
+
+    <datalist id="usuarios">
+        {{#each usuarios}}
+        <option class="listaP" value="{{this.id}}">{{this.nome}}</option>
+        {{/each}}
+    </datalist>
+
+    <datalist id="contratos">
+        {{#each contratos}}
+        <option class="listaCo" value="{{this.id}}">Id Usuario: {{this.id_usuario}} - Id_Cliente: {{this.id_cliente}}</option>
+        {{/each}}
+    </datalist>
+
+    <datalist id="procedimentos">
+        {{#each procedimentos}}
+        <option class="listaPro" value="{{this.id}}">{{this.descricao}}</option>
+        {{/each}}
+    </datalist>
+
+    <datalist id="admissoes">
+        {{#each admissoes}}
+        <option class="listaPro" value="{{this.id}}">{{this.id_cliente}}</option>
+        {{/each}}
+    </datalist>
+
+
+    <div class="d-flex m-auto">
+        <div class="form-group col-1 m-auto">
+            <button id="btn" type="button" class="btn btn-lg btn-primary btn-block mb-3 ">Editar</button>
+        </div>
+    </div>
+</form>
+
+<script>
+
+    let btn = document.querySelector('#btn')
+
+    btn.addEventListener('click', async () => {
+        let hiddenId = document.querySelector('#hiddenId').value
+        let id_cliente = document.querySelector('#id_cliente').value
+        let id_usuario = document.querySelector('#id_usuario').value
+        let id_contrato = document.querySelector('#id_contrato').value
+        let id_proc = document.querySelector('#id_proc').value
+        let id_admissao = document.querySelector('#id_admissao').value
+
+        if (id_usuario == "") {
+            return swal("Error !", "Preencha o campo Id Usuário !", "error")
+        }
+
+        if (id_cliente == "") {
+            return swal("Error !", "Preencha o campo Id Cliente !", "error")
+        }
+
+        if (id_contrato == "") {
+            return swal("Error !", "Preencha o campo Id Contrato !", "error")
+        }
+
+        if (id_proc == "") {
+            return swal("Error !", "Preencha o campo Id Procedimento !", "error")
+        }
+
+        if (id_admissao == "") {
+            return swal("Error !", "Preencha o campo Id Admissão !", "error")
+        }
+
+
+        const response = await fetch('/canil/editarocorrencia/' + hiddenId, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({ id_cliente, id_usuario, id_contrato, id_proc, id_admissao, hiddenId })
+        })
+
+        if (response.status == 200) {
+            return swal("Sucesso !", "Ocorrência atualizada com sucesso!", "success")
+        }
+    })
+
+    async function idCliente() {
+        let cliente = document.querySelector('#id_cliente').value
+
+        const result = await fetch('/canil/cliente/' + cliente )
+        const response = await result.json()
+
+        let Cliente = document.querySelector('#cliente').value = response.cliente.nome
+    }
+
+    async function nomeCliente() {
+        let cliente = document.querySelector('#id_cliente').value
+
+        const result = await fetch('/canil/cliente/' + cliente )
+        const response = await result.json()
+
+        let Cliente = document.querySelector('#cliente').value = response.cliente.nome
+    }
+
+    async function idUsuario() {
+        let usuario = document.querySelector('#id_usuario').value
+
+        const result = await fetch('/usuario/' + usuario )
+        const response = await result.json()
+        let Usuario = document.querySelector('#usuario').value = response.usuario.nome
+    }
+
+    async function nomeUsuario() {
+        let usuario = document.querySelector('#id_usuario').value
+
+        const result = await fetch('/usuario/' + usuario )
+        const response = await result.json()
+        let Usuario = document.querySelector('#usuario').value = response.usuario.nome
+    }
+
+    async function Contratos() {
+        let contrato = document.querySelector('#id_contrato').value
+
+        const result = await fetch('/canil/contrato/' + contrato )
+        const response = await result.json()
+        let Contrato = document.querySelector('#contrato').value = response.contrato.id_cliente
+    }
+
+    async function DescContrato() {
+        let contrato = document.querySelector('#id_contrato').value
+
+        const result = await fetch('/canil/contrato/' + contrato )
+        const response = await result.json()
+        let Contrato = document.querySelector('#contrato').value = response.contrato.id_cliente
+    }
+
+    async function Procedimentos() {
+        let procedimento = document.querySelector('#id_proc').value
+
+        const result = await fetch('/canil/procedimento/' + procedimento )
+        const response = await result.json()
+        let Procedimento = document.querySelector('#procedimento').value = response.procedimento.descricao
+    }
+
+    async function DescProc() {
+        let procedimento = document.querySelector('#id_proc').value
+
+        const result = await fetch('/canil/procedimento/' + procedimento )
+        const response = await result.json()
+        let Procedimento = document.querySelector('#procedimento').value = response.procedimento.descricao
+    }
+
+   async function Admissoes() {
+        let admissao = document.querySelector('#id_admissao').value
+
+        const result = await fetch('/canil/admissao/' + admissao )
+        const response = await result.json()
+        let Admissao = document.querySelector('#admissao').value = response.admissao.id_cliente
+    }
+
+    async function DescAdm() {
+        let admissao = document.querySelector('#id_admissao').value
+
+        const result = await fetch('/canil/admissao/' + admissao )
+        const response = await result.json()
+        let Admissao = document.querySelector('#admissao').value = response.admissao.id_cliente
+    }
+
+    
+nomeCliente()
+nomeUsuario()
+DescContrato()
+DescProc()
+DescAdm()
+</script>

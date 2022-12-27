@@ -1,0 +1,53 @@
+{{>_msg}}
+<div class="table-responsive">
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ID Cliente</th>
+                <th>ID Usuário</th>
+                <th>ID Contrato</th>
+                <th>ID Procedimento</th>
+                <th>ID Admissão</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each ocorrencias}}
+            <tr>
+                <td>{{this.id}}</td>
+                <td>{{this.id_cliente}}</td>
+                <td>{{this.id_usuario}}</td>
+                <td>{{this.id_contrato}}</td>
+                <td>{{this.id_proc}}</td>
+                <td>{{this.id_admissao}}</td>
+                
+                <td>
+                    <span class="d-none d-md-block">
+                        <a href="/canil/editarocorrencia/{{this.id}}" class="btn btn-outline-primary btn-sm">Editar</a>
+                        <a href="/canil/deletarocorrencia/{{this.id}}" class="btn btn-outline-danger btn-sm apagar_rg">Apagar</a>
+                    </span>
+
+                    <div class="d-block d-md-none">
+                        <div class="dropdown">
+                            <a href="#" class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
+                            arial-expanded="false">Ações</a>
+
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="/canil/editarocorrencia/{{this.id}}">Editar</a></li>
+                                <li><a class="dropdown-item" href="/canil/deletarocorrencia/{{this.id}}">Apagar</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <div class="d-flex m-auto">
+        <div class="form-group col-1 m-auto">
+            <a href="/canil/ocorrencias" class="btn btn-primary ms-1">Cadastrar</a>
+        </div>
+    </div>
+</div>

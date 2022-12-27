@@ -1,7 +1,7 @@
 <div class="m-auto col-8">
     <div class="d-flex">
-        <div class="form-group col-6 m-auto">
-            <h2 class="display-5 tituto m-auto">Editar Canil</h2>
+        <div class="form-group col-3 m-auto">
+            <h2 class="display-6 tituto mt-5">Editar Canil</h2>
         </div>
     </div>
 </div>
@@ -11,8 +11,13 @@
         <div class="form-group col-6 m-auto">
             <label><span class="text-danger">*</span>Nome</label>
             <input type="hidden" name="hiddenId" id="hiddenId" value="{{canil.id}}">
-            <input type="text" class="form-control" name="nome" id="nome" value="{{canil.nome}}" required>
-            <button id="btn" type="button" class="btn btn-lg btn-primary btn-block mt-3 m-auto">Registrar</button>
+            <input type="text" class="form-control mb-3" name="nome" id="nome" value="{{canil.nome}}" required>
+        </div>
+    </div>
+
+    <div class="d-flex m-auto">
+        <div class="form-group col-1 m-auto">
+            <button id="btn" type="button" class="btn btn-lg btn-primary btn-block mb-3 ">Editar</button>
         </div>
     </div>
 </form>
@@ -25,7 +30,11 @@
         let nome = document.querySelector('#nome').value
         let hiddenId = document.querySelector('#hiddenId').value
 
-        const response = await fetch('/canis/editar/' + hiddenId, {
+        if (nome == "") {
+            return swal("Error !", "Preencha o campo nome !", "error")
+        }
+
+        const response = await fetch('/canil/editarcanil/' + hiddenId, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
@@ -38,9 +47,7 @@
                 return swal("Sucesso !", "Canil registrado com sucesso!", "success")
             }
 
-        if (nome == "") {
-            return swal("Error !", "Preencha o campo nome !", "error")
-        }
+        
     })
 
 

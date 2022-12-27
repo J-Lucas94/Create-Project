@@ -15,38 +15,141 @@
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     <title>Canis</title>
 </head>
 
 <body>
-    
-    <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex">
+    {{!-- {{#if user}} --}}
+    <nav class="navbar shadow navbar-dark bg-primary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">Home</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+                aria-controls="offcanvasExample">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                    <a href="/registrar" class="nav-link link-dark">Cadastrar Usuário</a>
-                    </li>
-
-                    <li class="nav-item">
-                    <a href="listausuarios" class="nav-link link-dark">Usuários</a>
-                    </li>
-
-                    <li class="nav-item">
-                    <a href="/logout" class="nav-link link-dark">Sair</a>
-                    </li>
-                </ul>
-            </div>
+            <h5 style="color: white;">Usuario: {{permissoes.nome}} || Email: {{permissoes.email}}</h5>
+            <a href="/logout" class="btn btn-primary ms-1">Sair</a>
         </div>
     </nav>
+    {{!-- {{/if}} --}}
+    <div class="offcanvas offcanvas-start d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom"
+        tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" style="width: 280px;">
+
+
+        <div class="flex-shrink-0 p-3 bg-white" style="width: 280px;">
+            <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+                <svg class="bi me-2" width="30" height="24">
+                    <use xlink:href="#bootstrap" />
+                </svg>
+                <span class="fs-5 fw-semibold">Home</span>
+            </a>
+            <ul class="list-unstyled ps-0">
+                <li class="mb-1">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+                        data-bs-target="#home-collapse" aria-expanded="false">
+                        <i class="bi bi-journals"></i> Cadastros
+                    </button>
+                    <div class="collapse" id="home-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li class="mt-1"><a href="/canil/listacanis" style="text-decoration: none;"
+                                    class="link-primary rounded ms-5">Canis</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li class="mt-1"><a href="/canil/listachips" style="text-decoration: none;"
+                                    class="link-primary rounded ms-5">Chips</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li class="mt-1"><a href="/canil/listaclientes" style="text-decoration: none;"
+                                    class="link-primary rounded ms-5">Clientes</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li class="mt-1"><a href="/canil/listavias" style="text-decoration: none;"
+                                    class="link-primary rounded ms-5">Vias de Admissão</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li class="mt-1"><a href="/canil/listaprocedimentos" style="text-decoration: none;"
+                                    class="link-primary rounded ms-5">Procedimentos</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li class="mt-1"><a href="/canil/listamotivos" style="text-decoration: none;"
+                                    class="link-primary rounded ms-5">Motivos Baixa</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="mb-1">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+                        data-bs-target="#dashboard-collapse" aria-expanded="false">
+                        <i class="bi bi-filetype-pdf"></i> Relatórios
+                    </button>
+                    <div class="collapse" id="dashboard-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li class="mt-1"><a href="/canil/listacontratos" style="text-decoration: none;"
+                                    class="link-primary rounded ms-5 my-2">Contratos</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li class="mt-1"><a href="/canil/listaadmissoes" style="text-decoration: none;"
+                                    class="link-primary rounded ms-5">Admissões</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li class="mt-1"><a href="/canil/listaprecos" style="text-decoration: none;"
+                                    class="link-primary rounded ms-5">Preços por procedimento</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li class="mt-1"><a href="/canil/listaagenda" style="text-decoration: none;"
+                                    class="link-primary rounded ms-5 ">Agenda de procedimentos
+                                </a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li class="mt-1"><a href="/canil/listaprocAut" style="text-decoration: none;"
+                                    class="link-primary rounded ms-5 ">Procedimentos aut. e avulsos
+                                </a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li class="mt-1"><a href="/canil/listaocorrencias" style="text-decoration: none;"
+                                    class="link-primary rounded ms-5 ">Registro de ocorrências
+                                </a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li class="mt-1"><a href="/canil/listabaixas" style="text-decoration: none;"
+                                    class="link-primary rounded ms-5 ">Baixa
+                                </a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="mb-1">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+                        data-bs-target="#dashboard-collapse1" aria-expanded="false">
+                        <i class="bi bi-people-fill"></i> Usuários
+                    </button>
+                    <div class="collapse" id="dashboard-collapse1">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li class="mt-1"><a href="/registrar" style="text-decoration: none;"
+                                    class="link-primary rounded ms-5 my-2">Cadastrar Usuário</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li class="mt-1"><a href="/listausuarios" style="text-decoration: none;"
+                                    class="link-primary rounded ms-5">Lista de Usuários</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
 
     {{{body}}}
-    
 </body>
 
 </html>

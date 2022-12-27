@@ -1,0 +1,108 @@
+<div class="m-auto col-8">
+    <div class="d-flex">
+        <div class="form-group col-1 m-auto">
+            <h2 class="display-6 tituto mt-5">Baixa</h2>
+        </div>
+    </div>
+</div>
+
+<form>
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>ID</label>
+            <input type="text" list="motBaixas" class="form-control" onchange="MotivoBaixa()" name="id_motBaixa"
+                id="id_motBaixa" placeholder="Motivo Baixa..." required>
+        </div>
+    </div>
+
+
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>Motivo Baixa</label>
+            <input type="text" id="motBaixa" class="form-control mb-3" disabled>
+        </div>
+    </div>
+
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>ID</label>
+            <input type="text" list="admissoes" class="form-control mb-3" onchange="Admissoes()" name="id_admissao" id="id_admissao"
+                placeholder="Admissão..." required>
+        </div>
+    </div>
+
+    <div class="form-row m-auto">
+        <div class="form-group col-6 m-auto">
+            <label><span class="text-danger">*</span>Admissão</label>
+            <input id="admissao" type="text" class="form-control mb-3" disabled>
+        </div>
+    </div>
+
+
+    <datalist id="motBaixas">
+        {{#each motBaixas}}
+        <option class="listaPro" value="{{this.id}}">{{this.descricao}}</option>
+        {{/each}}
+    </datalist>
+
+    <datalist id="admissoes">
+        {{#each admissoes}}
+        <option class="listaAd" value="{{this.id}}">{{this.id_cliente}}</option>
+        {{/each}}
+    </datalist>
+
+    <div class="d-flex m-auto">
+        <div class="form-group col-1 m-auto">
+            <button id="btn" type="button" class="btn btn-lg btn-primary btn-block mb-3 ">Cadastrar</button>
+        </div>
+    </div>
+</form>
+
+<script>
+
+    let btn = document.querySelector('#btn')
+
+    btn.addEventListener('click', async () => {
+        let id_motBaixa = document.querySelector('#id_motBaixa').value
+        let id_admissao = document.querySelector('#id_admissao').value
+
+        if (id_motBaixa == "") {
+            return swal("Error !", "Preencha o campo Id Motivo Baixa !", "error")
+        }
+
+        if (id_admissao == "") {
+            return swal("Error !", "Preencha o campo Id Admissão !", "error")
+        }
+
+        const response = await fetch('/canil/registrarbaixa', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({ id_motBaixa, id_admissao})
+        })
+
+        if (response.status == 200) {
+            return swal("Sucesso !", "Baixa registrada com sucesso!", "success")
+        }
+    })
+
+
+    async function MotivoBaixa() {
+        let motBaixa = document.querySelector('#id_motBaixa').value
+
+        const result = await fetch('/canil/motivo/' + motBaixa )
+        const response = await result.json()
+        let MotBaixa = document.querySelector('#motBaixa').value = response.motBaixa.descricao
+    }
+
+    async function Admissoes() {
+        let admissao = document.querySelector('#id_admissao').value
+
+        const result = await fetch('/canil/admissao/' + admissao )
+        const response = await result.json()
+        let Admissao = document.querySelector('#admissao').value = response.admissao.id_cliente
+    }
+
+</script>

@@ -15,7 +15,7 @@ module.exports = (passport)=>{
 
             bcrypt.compare(senha, usuario.senha, (erro, correta)=>{
                 if(correta){
-                    return done(null, user)
+                    return done(null, usuario)
                 }else{
                     return done(null, false, {message: "Dados de acesso incorretos!"})
                 }

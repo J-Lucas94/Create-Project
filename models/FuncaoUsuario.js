@@ -1,21 +1,21 @@
-var db = require('../db/db')
+// var db = require('../db/db')
 
-const { Sequelize, DataTypes } = require('sequelize')
+// const { Sequelize, DataTypes } = require('sequelize')
 
-const FuncaoUsuario = db.define('FuncaoUsuario', {
-    funcoes_id: {
-        references: { model : 'Funcoes', key: 'id'},
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
+// const FuncaoUsuario = db.define('FuncaoUsuario', {
+//     funcoes_id: {
+//         references: { model : 'Funcoes', key: 'id'},
+//         type: DataTypes.STRING,
+//         allowNull: false,
+//     },
 
-    user_id: {
-        references: { model : 'Usuarios', key: 'id'},
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-})
+//     user_id: {
+//         references: { model : 'Usuarios', key: 'id'},
+//         type: DataTypes.STRING,
+//         allowNull: false,
+//     },
+// })
 
-// FuncaoUsuario.sync({force:true})
+// // FuncaoUsuario.sync({force:true})
 
-module.exports = FuncaoUsuario
+// module.exports = FuncaoUsuario
